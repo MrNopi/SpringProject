@@ -2,8 +2,6 @@ package spring.dao;
 
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-
-
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +26,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public List<User> listUsers() {
-        try(Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<User> query = session.getCriteriaBuilder().createQuery(User.class);
             query.from(User.class);
             return session.createQuery(query).getResultList();

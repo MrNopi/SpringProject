@@ -13,7 +13,7 @@ public class Main {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
         UserService userService = context.getBean(UserService.class);
-        //UserService userService = new UserServiceImpl();
+
         User user = new User();
         user.setLogin("admin");
         user.setPassword("12345");
