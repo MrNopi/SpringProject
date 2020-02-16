@@ -1,12 +1,15 @@
-package spring.dao;
+package spring.dao.implementation;
 
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import spring.dao.UserDao;
 import spring.model.User;
 
 @Repository
@@ -30,6 +33,18 @@ public class UserDaoImpl implements UserDao {
             CriteriaQuery<User> query = session.getCriteriaBuilder().createQuery(User.class);
             query.from(User.class);
             return session.createQuery(query).getResultList();
+        }
+    }
+
+    public User get(Long userId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<User> query = builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+            query.select(root).where(builder.equal(root.get("id"), userId));
+            return session.createQuery(query).uniqueResult();
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to get user with id " + userId);
         }
     }
 }
