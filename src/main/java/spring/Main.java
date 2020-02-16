@@ -3,10 +3,8 @@ package spring;
 import java.util.List;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import spring.config.AppConfig;
-import spring.dao.UserDao;
 import spring.model.User;
 import spring.service.UserService;
-import spring.service.implementation.UserServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
