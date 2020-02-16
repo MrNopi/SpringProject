@@ -18,7 +18,7 @@ import spring.model.User;
 public class AppConfig {
 
     @Autowired
-    private Environment env;
+    private Environment environment;
 
     @Bean
     public DataSource getDataSource() {
