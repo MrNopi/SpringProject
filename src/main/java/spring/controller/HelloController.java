@@ -44,7 +44,6 @@ public class HelloController {
     public UserResponseDto get(@PathVariable Long userId) {
         UserResponseDto userResponseDto = new UserResponseDto();
         User user = userService.get(userId);
-        userResponseDto.setId(userId);
         userResponseDto.setLogin(user.getLogin());
         userResponseDto.setPassword(user.getPassword());
         return userResponseDto;
