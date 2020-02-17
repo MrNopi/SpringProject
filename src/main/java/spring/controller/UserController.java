@@ -1,7 +1,7 @@
 package spring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,24 +42,21 @@ public class UserController {
 
     @GetMapping(value = "/{userId}")
     public UserResponseDto get(@PathVariable Long userId) {
-        UserResponseDto userResponseDto = new UserResponseDto();
-        User user = userService.get(userId);
-        userResponseDto.setLogin(user.getLogin());
-        userResponseDto.setPassword(user.getPassword());
-        return userResponseDto;
+        return getDto(userService.get(userId));
     }
 
     @GetMapping(value = "/")
     public List<UserResponseDto> getAll() {
-        List<UserResponseDto> userResponseDtoList = new ArrayList<>();
-        List<User> users = userService.listUsers();
-        for (User user : users) {
-            UserResponseDto userResponseDto = new UserResponseDto();
-            userResponseDto.setId(user.getId());
-            userResponseDto.setLogin(user.getLogin());
-            userResponseDto.setPassword(user.getPassword());
-            userResponseDtoList.add(userResponseDto);
-        }
-        return userResponseDtoList;
+        return userService.listUsers()
+        .stream()
+                .map(this::getDto)
+                .collect(Collectors.toList());
+    }
+
+    private UserResponseDto getDto(User user) {
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setLogin(user.getLogin());
+        userResponseDto.setPassword(user.getPassword());
+        return userResponseDto;
     }
 }
