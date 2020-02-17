@@ -12,7 +12,7 @@
     <jdk.version>11</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.checkstyle.plugin.version>2.1.0</maven.checkstyle.plugin.version>
+    <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
     <maven.checkstyle.plugin.configLocation>
         https://raw.githubusercontent.com/mate-academy/style-guides/master/java/checkstyle.xml
     </maven.checkstyle.plugin.configLocation>
@@ -103,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
