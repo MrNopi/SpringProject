@@ -13,7 +13,7 @@ import spring.service.UserService;
 
 @RestController()
 @RequestMapping("/user")
-public class HelloController {
+public class UserController {
     @Autowired
     private UserService userService;
 
@@ -47,11 +47,6 @@ public class HelloController {
         userResponseDto.setLogin(user.getLogin());
         userResponseDto.setPassword(user.getPassword());
         return userResponseDto;
-    }
-
-    @GetMapping(value = "/hello")
-    public String hello() {
-        return "Hello";
     }
 
     @GetMapping(value = "/")
