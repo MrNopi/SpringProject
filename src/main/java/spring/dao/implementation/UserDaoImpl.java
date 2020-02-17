@@ -4,7 +4,6 @@ import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import spring.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -24,7 +22,7 @@ public class UserDaoImpl implements UserDao {
             Long id = (Long) sessionFactory.openSession().save(user);
             user.setId(id);
         } catch (Exception e) {
-            LOGGER.error("Unable to add new user");
+            throw new RuntimeException("Unable to add new user");
         }
     }
 

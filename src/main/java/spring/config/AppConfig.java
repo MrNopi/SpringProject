@@ -23,10 +23,10 @@ public class AppConfig {
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getProperty("db_driver"));
-        dataSource.setUrl(env.getProperty("db_url"));
-        dataSource.setUsername(env.getProperty("db_username"));
-        dataSource.setPassword(env.getProperty("db_password"));
+        dataSource.setDriverClassName(environment.getProperty("db_driver"));
+        dataSource.setUrl(environment.getProperty("db_url"));
+        dataSource.setUsername(environment.getProperty("db_username"));
+        dataSource.setPassword(environment.getProperty("db_password"));
         return dataSource;
     }
 
@@ -35,9 +35,9 @@ public class AppConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
         Properties props = new Properties();
-        props.put("dialect", env.getProperty("db_dialect"));
-        props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        props.put("dialect", environment.getProperty("db_dialect"));
+        props.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+        props.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(User.class);
