@@ -1,17 +1,16 @@
-package spring.dao;
+package spring.dao.implementation;
 
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import spring.dao.UserDao;
 import spring.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,7 +20,7 @@ public class UserDaoImpl implements UserDao {
             Long id = (Long) sessionFactory.openSession().save(user);
             user.setId(id);
         } catch (Exception e) {
-            LOGGER.error("Unable to add new user");
+            throw new RuntimeException("Unable to add new user");
         }
     }
 
@@ -30,6 +29,14 @@ public class UserDaoImpl implements UserDao {
             CriteriaQuery<User> query = session.getCriteriaBuilder().createQuery(User.class);
             query.from(User.class);
             return session.createQuery(query).getResultList();
+        }
+    }
+
+    public User get(Long userId) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(User.class, userId);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to get user with id " + userId);
         }
     }
 }
